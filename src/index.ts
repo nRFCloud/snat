@@ -1,7 +1,6 @@
 /* eslint @typescript-eslint/no-require-imports: "off" */
 import * as fs from 'fs';
 import * as path from 'path';
-import { Resource, RemovalPolicy, Duration, Tags, Annotations } from 'aws-cdk-lib';
 import {
   IVpc, SubnetSelection, Instance, InstanceClass, InstanceSize,
   InstanceType, SubnetType, Peer, SecurityGroup, ISecurityGroup, Port,
@@ -9,9 +8,9 @@ import {
   MachineImage, AmazonLinuxGeneration, AmazonLinuxStorage, AmazonLinuxCpuType,
   CfnNetworkInterface, CfnEIP, CfnEIPAssociation,
   CloudFormationInit, InitConfig, InitFile, InitPackage, InitCommand,
-} from 'aws-cdk-lib/aws-ec2';
-import { ManagedPolicy, Role, ServicePrincipal, PolicyStatement, IRole } from 'aws-cdk-lib/aws-iam';
-import { Construct } from 'constructs';
+} from '@aws-cdk/aws-ec2';
+import { ManagedPolicy, Role, ServicePrincipal, PolicyStatement, IRole } from '@aws-cdk/aws-iam';
+import { Resource, RemovalPolicy, Duration, Tags, Annotations, Construct } from '@aws-cdk/core';
 import * as Mustache from 'mustache';
 const fetch = require('sync-fetch');
 

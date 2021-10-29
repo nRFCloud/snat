@@ -1,6 +1,6 @@
 const { AwsCdkConstructLibrary, AwsCdkTypeScriptApp } = require('projen');
 
-const cdkVersion = '2.0.0-rc.25';
+const cdkVersion = '1.129.0';
 
 const tsCustomConfig = {
   exclude: ['example'],
@@ -8,22 +8,19 @@ const tsCustomConfig = {
 };
 
 const project = new AwsCdkConstructLibrary({
-  author: 'Kane Zhu',
-  authorAddress: 'me@kane.mx',
   cdkVersion: cdkVersion,
   defaultReleaseBranch: 'main',
   compileBeforeTest: true, // since we want to run the cli in tests
   jsiiFqn: 'projen.AwsCdkConstructLibrary',
-  name: 'cdk-construct-simple-nat',
-  description: 'A CDK construct to build Simple NAT instance on AWS.',
-  repositoryUrl: 'git@github.com:zxkane/snat.git',
+  name: 'cdk-v1-construct-simple-nat',
+  description: 'A CDK construct to build Simple NAT instance on AWS. Backport for AWS cdk v1',
+  repositoryUrl: 'git@github.com:nRFCloud/snat.git',
 
   tsconfig: tsCustomConfig,
   buildWorkflowMutable: true,
   /* AwsCdkConstructLibraryOptions */
   // cdkAssert: true,                                                          /* Install the @aws-cdk/assert library? */
-  cdkDependencies: [
-  ], /* Which AWS CDK modules (those that start with "@aws-cdk/") does this library require when consumed? */
+  cdkDependencies: ['@aws-cdk/aws-iam', '@aws-cdk/aws-ec2', '@aws-cdk/core'], /* Which AWS CDK modules (those that start with "@aws-cdk/") does this library require when consumed? */
   // cdkDependenciesAsDeps: true,                                              /* If this is enabled (default), all modules declared in `cdkDependencies` will be also added as normal `dependencies` (as well as `peerDependencies`). */
   // cdkTestDependencies: undefined,                                           /* AWS CDK modules required for testing. */
   cdkVersionPinning: false, /* Use pinned version instead of caret version for CDK. */
@@ -49,8 +46,8 @@ const project = new AwsCdkConstructLibrary({
 
   /* NodePackageOptions */
   // allowLibraryDependencies: true,                                           /* Allow the project to include `peerDependencies` and `bundledDependencies`. */
-  authorEmail: 'me@kane.mx', /* Author's e-mail. */
-  authorName: 'Kane Zhu', /* Author's name. */
+  authorAddress: 'john.conley@nordisemi.no', /* Author's e-mail. */
+  authorName: 'John Conley', /* Author's name. */
   // authorOrganization: undefined,                                            /* Author's Organization. */
   // autoDetectBin: true,                                                      /* Automatically add all executables under the `bin` directory to your `package.json` file under the `bin` section. */
   // bin: undefined,                                                           /* Binary programs vended with your module. */
@@ -61,8 +58,6 @@ const project = new AwsCdkConstructLibrary({
   // deps: undefined,                                                                 /* Runtime dependencies of this module. */
   // description: undefined,                                                   /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: [
-    'aws-cdk-lib@' + cdkVersion,
-    'constructs@10.0.5',
     '@types/mustache',
   ], /* Build dependencies for this module. */
   // entrypoint: 'lib/index.js',                                               /* Module entrypoint (`main` in `package.json`). */
@@ -86,7 +81,6 @@ const project = new AwsCdkConstructLibrary({
   // packageName: undefined,                                                   /* The "name" in package.json. */
   // peerDependencyOptions: undefined,                                         /* Options for `peerDeps`. */
   peerDeps: [
-    'aws-cdk-lib@^' + cdkVersion,
   ], /* Peer dependencies for this module. */
   // projenCommand: 'npx projen',                                              /* The shell command to use in order to run the projen CLI. */
   // repository: undefined,                                                    /* The repository is the location where the actual code for your package lives. */
@@ -174,31 +168,5 @@ project.package.addField('resolutions', {
 });
 project.buildTask.exec('cp src/snat.* src/runonce.sh lib/');
 project.buildTask.spawn(project.packageTask);
-
-const examplePrj = new AwsCdkTypeScriptApp({
-  cdkVersion: cdkVersion,
-  name: 'simple-nat-example',
-  cdkDependencies: [
-  ] /* Which AWS CDK modules (those that start with "@aws-cdk/") this app uses. */,
-  cdkVersionPinning: true /* Use pinned version instead of caret version for CDK. */,
-  deps: [
-    'cdk-construct-simple-nat@^0.1.98',
-  ],
-  description:
-    'An example CDK app uses SimpleNAT construct.' /* The description is just a string that helps people understand the purpose of the package. */,
-  license: 'Apache-2.0' /* License's SPDX identifier. */,
-  licensed: false /* Indicates if a license should be added. */,
-  defaultReleaseBranch: 'main',
-  outdir: 'example',
-  parent: project,
-  gitignore: [
-    'cdk.context.json',
-  ],
-});
-examplePrj.package.addField('resolutions', {
-  'pac-resolver': '^5.0.0',
-  'set-value': '^4.0.1',
-  'ansi-regex': '^5.0.1',
-});
 
 project.synth();

@@ -1,8 +1,8 @@
 import { Construct } from 'constructs';
-import { App, Stack, StackProps, Arn, Aws } from 'aws-cdk-lib';
-import { SimpleNAT } from 'cdk-construct-simple-nat';
-import { Vpc, GatewayVpcEndpointAwsService, SubnetType } from 'aws-cdk-lib/aws-ec2';
-import { Role, ServicePrincipal, PolicyDocument, PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { App, Stack, StackProps, Arn, Aws } from '@aws-cdk/core';
+import { SimpleNAT } from '../../src';
+import { Vpc, GatewayVpcEndpointAwsService, SubnetType } from '@aws-cdk/aws-ec2';
+import { Role, ServicePrincipal, PolicyDocument, PolicyStatement } from '@aws-cdk/aws-iam';
 
 export class SimpleNATStack extends Stack {
   constructor(scope: Construct, id: string, props: StackProps = {}) {
@@ -23,11 +23,11 @@ export class SimpleNATStack extends Stack {
         },
       },
     });
-    
+
     if (vpc.publicSubnets.length < 1) {
       throw new Error('The VPC must have PUBLIC subnet.');
     }
-    
+
     const keyParaName = this.node.tryGetContext('RemoteKeyName') ?? 'remote-key';
     const hostParaName = this.node.tryGetContext('RemoteHostName') ?? 'remote-host';
     const role = new Role(this, 'NatRole', {
@@ -66,7 +66,7 @@ export class SimpleNATStack extends Stack {
         }),
       },
     });
-    
+
     const gIPs = [
       '74.125.0.0/16',
       '172.217.0.0/16',
@@ -111,7 +111,7 @@ systemctl start sshuttle
     })
     .withGithubRoute()
     // .withGoogleRoute();
-    
+
     gIPs.forEach(ip => { nat.addV4Route(ip)});
   }
 }
