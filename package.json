@@ -62,11 +62,11 @@
     "constructs": "^3.2.27"
   },
   "dependencies": {
-    "mustache": "^4.2.0",
-    "sync-fetch": "^0.3.0",
     "@aws-cdk/aws-ec2": "^1.129.0",
     "@aws-cdk/aws-iam": "^1.129.0",
-    "@aws-cdk/core": "^1.129.0"
+    "@aws-cdk/core": "^1.129.0",
+    "mustache": "^4.2.0",
+    "sync-fetch": "^0.3.0"
   },
   "bundledDependencies": [
     "mustache",
@@ -84,7 +84,7 @@
   },
   "main": "lib/index.js",
   "license": "Apache-2.0",
-  "version": "0.1.113",
+  "version": "0.0.0",
   "jest": {
     "testMatch": [
       "**/__tests__/**/*.ts?(x)",
