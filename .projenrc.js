@@ -46,8 +46,8 @@ const project = new AwsCdkConstructLibrary({
 
   /* NodePackageOptions */
   // allowLibraryDependencies: true,                                           /* Allow the project to include `peerDependencies` and `bundledDependencies`. */
-  authorAddress: 'john.conley@nordisemi.no', /* Author's e-mail. */
-  authorName: 'John Conley', /* Author's name. */
+  authorAddress: 'nrfcloud@nordisemi.no', /* Author's e-mail. */
+  authorName: 'Nordic Semiconductor ASA | nordicsemi.no', /* Author's name. */
   // authorOrganization: undefined,                                            /* Author's Organization. */
   // autoDetectBin: true,                                                      /* Automatically add all executables under the `bin` directory to your `package.json` file under the `bin` section. */
   // bin: undefined,                                                           /* Binary programs vended with your module. */
