@@ -27,8 +27,8 @@
     "projen": "npx projen"
   },
   "author": {
-    "name": "John Conley",
-    "email": "john.conley@nordisemi.no",
+    "name": "Nordic Semiconductor ASA | nordicsemi.no",
+    "email": "team@nrfcloud.com",
     "organization": false
   },
   "devDependencies": {
